@@ -188,3 +188,27 @@ a{color:var(--brand)}
 .kanban .col:nth-child(3){--c:#d97706}
 .kanban .col:nth-child(4){--c:#dc2626}
 .kanban .col:nth-child(5){--c:#16a34a}
+
+/* ===== Login page: split screen, black & gold ===== */
+.lg-wrap{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr;background:#fff}
+.lg-brand{position:relative;overflow:hidden;background:#090909;color:#e9e3d3;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 40px;text-align:center}
+.lg-glow{position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,rgba(201,162,77,.18),transparent 55%);pointer-events:none}
+.lg-logo{position:relative;width:min(380px,80%);-webkit-mask-image:radial-gradient(ellipse 52% 54% at 50% 50%,#000 80%,transparent 100%);mask-image:radial-gradient(ellipse 52% 54% at 50% 50%,#000 80%,transparent 100%)}
+.lg-tag{position:relative;margin-top:6px;color:#c9a24d;letter-spacing:.35em;text-transform:uppercase;font-size:13px;font-weight:700}
+.lg-points{position:relative;list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:#b9b3a4}
+.lg-points li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#c9a24d;margin-right:10px;vertical-align:middle}
+.lg-form-side{display:flex;align-items:center;justify-content:center;padding:40px 24px}
+.lg-form{width:100%;max-width:380px;display:flex;flex-direction:column;gap:18px}
+.lg-form h1{font-size:28px;margin:4px 0 6px}
+.lg-kicker{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#a8822f}
+.lg-form label.f input{padding:12px 14px;border-radius:12px;font-size:15px;background:#fafafb}
+.lg-form label.f input:focus{outline:none;border-color:#c9a24d;box-shadow:0 0 0 3px rgba(201,162,77,.18);background:#fff}
+.lg-link{font-weight:600;color:#a8822f;text-decoration:none}
+.lg-link:hover{text-decoration:underline}
+.lg-pw{position:relative;display:block}
+.lg-pw input{width:100%;padding-right:64px !important}
+.lg-pw button{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:var(--muted);padding:4px 6px}
+.lg-btn{background:#14141a;color:#f3e7c8;border-radius:12px;padding:13px;font-weight:700;font-size:15px;letter-spacing:.02em;border:1px solid #14141a;transition:.15s}
+.lg-btn:hover{background:#000;border-color:#c9a24d;color:#fff}
+.lg-btn:disabled{opacity:.6}
+@media(max-width:860px){.lg-wrap{grid-template-columns:1fr}.lg-brand{padding:28px 20px 22px}.lg-logo{width:190px}.lg-points{display:none}.lg-form-side{padding:28px 20px 40px}}
