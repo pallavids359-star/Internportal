@@ -17,7 +17,7 @@ export default function Login() {
     <div className="login-wrap">
       <form className="login" onSubmit={submit}>
         
-        <div><h1>Welcome back</h1><p className="muted">Log in with the email your programme admin registered.</p></div>
+        <img src="/logo-full.jpg" alt="Manchester Technologies" className="login-logo" /><div><h1>Welcome back</h1><p className="muted">Log in with the email your programme admin registered.</p></div>
         <label className="f">Email<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus /></label>
         <label className="f">Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required /></label>
         {err && <div className="err">{err}</div>}
