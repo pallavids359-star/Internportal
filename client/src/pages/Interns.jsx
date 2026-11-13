@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { api } from '../api';
 import { useApp } from '../context';
 import { useApi, Avatar, Loading, Modal, Bar } from '../components/ui';
+import BulkImport from '../components/BulkImport';
 
 export default function Interns() {
   const { user, toast } = useApp();
@@ -26,7 +27,7 @@ export default function Interns() {
       <input className="search" placeholder="Search name, email or college…" value={q} onChange={(e) => setQ(e.target.value)} />
       <select className="search" style={{ minWidth: 150 }} value={tf} onChange={(e) => setTf(e.target.value)}><option value="">All teams</option>{teams.map((t) => <option key={t._id} value={t._id}>{t.name}</option>)}</select>
       <label className="small muted"><input type="checkbox" checked={showInactive} onChange={(e) => setShowInactive(e.target.checked)} /> show removed</label>
-      <div className="spacer" /><button className="btn" onClick={() => setModal({ kind: 'add' })}>+ Add intern</button>
+      <div className="spacer" /><button className="btn ghost" onClick={() => setModal({ kind: 'bulk' })}>Bulk add (Excel/CSV)</button> <button className="btn" onClick={() => setModal({ kind: 'add' })}>+ Add intern</button>
     </div>
     <div className="card" style={{ padding: '6px 8px', overflowX: 'auto' }}>
       <table><thead><tr><th>Person</th><th>Role</th><th>Team</th><th>College</th><th>Attendance</th><th>Tasks</th><th>Score</th><th /></tr></thead>
@@ -47,6 +48,7 @@ export default function Interns() {
         <div className="row2"><label className="f">Team<select name="team"><option value="">No team yet</option>{teams.map((t) => <option key={t._id} value={t._id}>{t.name}</option>)}</select></label>
           <label className="f">Role<select name="role"><option value="intern">Intern</option>{user.role === 'superadmin' && <option value="admin">Admin</option>}</select></label></div>
       </Modal>)}
+    {modal?.kind === 'bulk' && <BulkImport teams={teams} onClose={() => setModal(null)} onDone={reload} />}
     {modal?.kind === 'cred' && (
       <Modal title="Login details" onClose={() => setModal(null)}>
         <p>Share these with <b>{modal.name}</b>. They’ll be asked to change the password after logging in.</p>

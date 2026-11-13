@@ -6,7 +6,7 @@ import { Avatar, Loading, Empty } from '../components/ui';
 const ACTIONS = {
   'auth.login': ['Logged in', 'p-grey'], 'auth.login_failed': ['Failed login', 'p-red'], 'auth.login_blocked': ['Blocked login', 'p-red'],
   'auth.password_change': ['Changed password', 'p-grey'],
-  'user.create': ['Added person', 'p-green'], 'user.update': ['Updated person', 'p-blue'], 'user.remove': ['Removed access', 'p-red'], 'user.restore': ['Restored access', 'p-green'], 'user.password_reset': ['Reset password', 'p-amber'],
+  'user.create': ['Added person', 'p-green'], 'user.bulk_create': ['Bulk added', 'p-green'], 'user.update': ['Updated person', 'p-blue'], 'user.remove': ['Removed access', 'p-red'], 'user.restore': ['Restored access', 'p-green'], 'user.password_reset': ['Reset password', 'p-amber'],
   'team.create': ['Created team', 'p-green'], 'team.update': ['Updated team', 'p-blue'], 'team.delete': ['Deleted team', 'p-red'],
   'project.create': ['Created project', 'p-green'], 'project.update': ['Updated project', 'p-blue'], 'project.delete': ['Deleted project', 'p-red'],
   'task.create': ['Assigned task', 'p-green'], 'task.start': ['Started task', 'p-grey'], 'task.submit': ['Submitted task', 'p-amber'],

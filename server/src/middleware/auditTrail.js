@@ -5,6 +5,7 @@ const RULES = [
   ['POST', /^\/api\/auth\/login$/, 'auth.login'],
   ['POST', /^\/api\/auth\/change-password$/, 'auth.password_change'],
   ['POST', /^\/api\/users$/, 'user.create'],
+  ['POST', /^\/api\/bulk-users/, 'user.bulk_create'],
   ['PATCH', /^\/api\/users\/([^/]+)$/, 'user.update'],
   ['POST', /^\/api\/users\/([^/]+)\/reset-password$/, 'user.password_reset', User],
   ['POST', /^\/api\/teams$/, 'team.create'],
@@ -70,6 +71,7 @@ module.exports = async function auditTrail(req, res, next) {
           else if (b.active === true) action = 'user.restore';
           details = Object.keys(b).map((k) => (k === 'feedback' ? 'feedback updated' : `${k}: ${b[k]}`)).join(', ');
           break;
+        case 'user.bulk_create': target = (out.created || []).length + ' intern(s)'; details = (out.skipped || []).length + ' skipped'; break;
         case 'team.create': target = b.name; details = b.focus || ''; break;
         case 'team.update': target = out.name; details = 'leader' in b ? `leader: ${(out.leader && out.leader.name) || 'none'}` : Object.keys(b).join(', '); break;
         case 'project.create': target = b.name; break;

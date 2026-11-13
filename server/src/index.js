@@ -36,6 +36,7 @@ app.use('/api/messages', auth, require('./routes/messages'));
 app.use('/api/documents', auth, require('./routes/documents'));
 app.use('/api/notifications', auth, require('./routes/notifications'));
 app.use('/api/reports', auth, require('./routes/reports'));
+app.use('/api/bulk-users', auth, require('./routes/bulk'));
 app.use('/api/audit', auth, require('./routes/audit'));
 app.use('/api', (req, res) => res.status(404).json({ error: 'Not found' }));
 
