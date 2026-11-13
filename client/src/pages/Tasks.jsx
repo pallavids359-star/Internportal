@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { api, download } from '../api';
 import { useApp } from '../context';
 import { useApi, Loading, Modal, Avatar, PrioPill, STATUS, DueText } from '../components/ui';
+import TaskComments from '../components/TaskComments';
 
 const COLS = ['todo', 'inprogress', 'submitted', 'rejected', 'approved'];
 
 export default function Tasks() {
   const { isIntern, user, toast } = useApp();
   const [tasks, reload] = useApi('/tasks');
+  const [counts, reloadCounts] = useApi('/task-comments/counts');
   const [projects] = useApi('/projects');
   const [users] = useApi(isIntern ? null : '/users');
   const [modal, setModal] = useState(null);
@@ -46,6 +48,7 @@ export default function Tasks() {
             {t.submission?.file && <button className="small" style={{ marginTop: 6, color: 'var(--brand)' }} onClick={() => download(`/documents/${t.submission.file._id}/download`, t.submission.file.name).catch((e) => toast(e.message))}>📎 {t.submission.file.name}</button>}
             {t.feedback && <div className="small" style={{ marginTop: 6, color: c === 'rejected' ? 'var(--red)' : 'var(--green)' }}>💬 {t.feedback}</div>}
             <div className="acts">
+              <button className="btn ghost sm" onClick={() => setModal({ kind: 'comments', task: t })}>Comments{(counts || {})[t._id] ? ' (' + counts[t._id] + ')' : ''}</button>
               {mine && c === 'todo' && <button className="btn sm" onClick={() => set(t, { status: 'inprogress' }, 'Started')}>Start</button>}
               {mine && (c === 'inprogress' || c === 'rejected') && <button className="btn sm" onClick={() => setModal({ kind: 'submit', task: t })}>Submit work</button>}
               {!isIntern && !mine && c === 'submitted' && <><button className="btn green sm" onClick={() => setModal({ kind: 'approved', task: t })}>Approve</button><button className="btn ghost sm" onClick={() => setModal({ kind: 'rejected', task: t })}>Reject</button></>}
@@ -55,6 +58,7 @@ export default function Tasks() {
         {!l.length && <div className="empty small">Nothing here</div>}
       </div>); })}</div>
 
+    {modal?.kind === 'comments' && <TaskComments task={modal.task} onClose={() => { setModal(null); reloadCounts(); }} />}
     {modal?.kind === 'new' && <NewTask projects={projects} users={users} onClose={() => setModal(null)} onSubmit={create} />}
     {modal?.kind === 'submit' && <Modal title={'Submit: ' + modal.task.title} okLabel="Submit for review" onClose={() => setModal(null)} onSubmit={submit}>
       <label className="f">Attach file (optional)<input name="file" type="file" /></label>

@@ -15,12 +15,14 @@ import Reports from './pages/Reports';
 import Roles from './pages/Roles';
 import Profile from './pages/Profile';
 import Audit from './pages/Audit';
+import Notices from './pages/Notices';
+import { ForgotPassword, ResetPassword } from './pages/PasswordPages';
 import { Loading } from './components/ui';
 
 export default function App() {
   const { user, loading, isAdmin, isIntern } = useApp();
   if (loading) return <Loading />;
-  if (!user) return <Routes><Route path="*" element={<Login />} /></Routes>;
+  if (!user) return <Routes><Route path="/forgot-password" element={<ForgotPassword />} /><Route path="/reset-password" element={<ResetPassword />} /><Route path="*" element={<Login />} /></Routes>;
   return (
     <Routes>
       <Route path="/login" element={<Navigate to="/" />} />
@@ -37,6 +39,7 @@ export default function App() {
         <Route path="/reports" element={<Reports />} />
         {isAdmin && <Route path="/roles" element={<Roles />} />}
         {isAdmin && <Route path="/audit" element={<Audit />} />}
+        {isAdmin && <Route path="/notices" element={<Notices />} />}
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Route>

@@ -14,7 +14,7 @@ const ACTIONS = {
   'attendance.check_in': ['Checked in', 'p-grey'], 'attendance.check_out': ['Checked out', 'p-grey'], 'attendance.mark': ['Marked attendance', 'p-amber'], 'attendance.remind': ['Sent reminder', 'p-grey'],
   'meeting.create': ['Scheduled meeting', 'p-green'], 'meeting.update': ['Edited meeting', 'p-blue'], 'meeting.delete': ['Cancelled meeting', 'p-red'],
   'document.upload': ['Uploaded file', 'p-green'], 'document.delete': ['Deleted file', 'p-red'],
-  'chat.announcement': ['Announcement', 'p-brand'],
+  'chat.announcement': ['Announcement', 'p-brand'], 'chat.pin': ['Pinned notice', 'p-brand'], 'auth.password_reset_link': ['Reset via email', 'p-amber'],
 };
 const CATS = [['', 'All activity'], ['auth', 'Logins & passwords'], ['user', 'People'], ['team', 'Teams'], ['project', 'Projects'], ['task', 'Tasks'], ['attendance', 'Attendance'], ['meeting', 'Meetings'], ['document', 'Documents'], ['chat', 'Announcements']];
 

@@ -4,12 +4,13 @@ import { useApp } from '../context';
 import { api } from '../api';
 import { getSocket } from '../socket';
 import { Avatar } from './ui';
+import Banner from './Banner';
 
 const NAV = {
   admin: [['Overview', [['/', '🏠', 'Dashboard'], ['/interns', '🎓', 'Interns'], ['/teams', '👥', 'Teams']]],
     ['Work', [['/projects', '📁', 'Projects'], ['/tasks', '✅', 'Tasks'], ['/attendance', '🕘', 'Attendance']]],
     ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Documents']]],
-    ['Insights', [['/reports', '📊', 'Reports'], ['/audit', '\u{1F9FE}', 'Audit Log'], ['/roles', '🔐', 'Roles & Access']]]],
+    ['Insights', [['/reports', '📊', 'Reports'], ['/notices', '\u{1F4CC}', 'Notice Board'], ['/audit', '\u{1F9FE}', 'Audit Log'], ['/roles', '🔐', 'Roles & Access']]]],
   leader: [['Overview', [['/', '🏠', 'Dashboard'], ['/teams', '👥', 'My Team']]],
     ['Work', [['/projects', '📁', 'Projects'], ['/tasks', '✅', 'Tasks'], ['/attendance', '🕘', 'Attendance']]],
     ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Documents']]],
@@ -82,7 +83,7 @@ export default function Layout() {
         {user.mustChangePassword && loc.pathname !== '/profile' && (
           <div style={{ padding: '14px 28px 0' }}><div className="demo-note">You are using a temporary password. <NavLink to="/profile">Change it now</NavLink>.</div></div>
         )}
-        <main className="content" onClick={() => setOpen(false)}><Outlet /></main>
+        <main className="content" onClick={() => setOpen(false)}><Banner /><Outlet /></main>
       </div>
     </div>
   );

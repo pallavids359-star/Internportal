@@ -27,6 +27,8 @@ const RULES = [
   ['POST', /^\/api\/documents$/, 'document.upload'],
   ['DELETE', /^\/api\/documents\/([^/]+)$/, 'document.delete', Document],
   ['POST', /^\/api\/messages\/announcements$/, 'chat.announcement'],
+  ['POST', /^\/api\/announcements$/, 'chat.pin'],
+  ['POST', /^\/api\/password\/reset$/, 'auth.password_reset_link'],
 ];
 
 const nameOf = (d) => (d && (d.name || d.title)) || '';
@@ -72,6 +74,7 @@ module.exports = async function auditTrail(req, res, next) {
           details = Object.keys(b).map((k) => (k === 'feedback' ? 'feedback updated' : `${k}: ${b[k]}`)).join(', ');
           break;
         case 'user.bulk_create': target = (out.created || []).length + ' intern(s)'; details = (out.skipped || []).length + ' skipped'; break;
+        case 'chat.pin': target = 'Everyone'; details = String(b.text || '').slice(0, 200); break;
         case 'team.create': target = b.name; details = b.focus || ''; break;
         case 'team.update': target = out.name; details = 'leader' in b ? `leader: ${(out.leader && out.leader.name) || 'none'}` : Object.keys(b).join(', '); break;
         case 'project.create': target = b.name; break;

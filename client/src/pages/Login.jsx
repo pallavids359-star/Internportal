@@ -22,7 +22,7 @@ export default function Login() {
         <label className="f">Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required /></label>
         {err && <div className="err">{err}</div>}
         <button className="btn" style={{ justifyContent: 'center', padding: 11 }} disabled={busy}>{busy ? 'Logging in…' : 'Log in'}</button>
-        <p className="small muted">Forgot your password? Ask your programme admin to reset it.</p>
+        <p className="small muted"><a href="/forgot-password">Forgot password?</a></p>
       </form>
     </div>
   );
