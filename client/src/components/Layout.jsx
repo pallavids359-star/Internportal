@@ -1,0 +1,89 @@
+import { useEffect, useState } from 'react';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useApp } from '../context';
+import { api } from '../api';
+import { getSocket } from '../socket';
+import { Avatar } from './ui';
+
+const NAV = {
+  admin: [['Overview', [['/', '🏠', 'Dashboard'], ['/interns', '🎓', 'Interns'], ['/teams', '👥', 'Teams']]],
+    ['Work', [['/projects', '📁', 'Projects'], ['/tasks', '✅', 'Tasks'], ['/attendance', '🕘', 'Attendance']]],
+    ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Documents']]],
+    ['Insights', [['/reports', '📊', 'Reports'], ['/roles', '🔐', 'Roles & Access']]]],
+  leader: [['Overview', [['/', '🏠', 'Dashboard'], ['/teams', '👥', 'My Team']]],
+    ['Work', [['/projects', '📁', 'Projects'], ['/tasks', '✅', 'Tasks'], ['/attendance', '🕘', 'Attendance']]],
+    ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Documents']]],
+    ['Insights', [['/reports', '📊', 'Team Reports']]]],
+  intern: [['Overview', [['/', '🏠', 'My Dashboard']]],
+    ['Work', [['/projects', '📁', 'My Projects'], ['/tasks', '✅', 'My Tasks'], ['/attendance', '🕘', 'My Attendance']]],
+    ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Learning & Docs']]],
+    ['Insights', [['/reports', '⭐', 'My Performance']]]],
+};
+const roleKey = (r) => (r === 'superadmin' ? 'admin' : r);
+const ROLE_LABEL = { superadmin: 'Super Admin', admin: 'Admin', leader: 'Team Leader', intern: 'Intern' };
+
+export default function Layout() {
+  const { user, logout, toast } = useApp();
+  const nav = NAV[roleKey(user.role)];
+  const loc = useLocation();
+  const navigate = useNavigate();
+  const [notifs, setNotifs] = useState([]);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    api('/notifications').then(setNotifs).catch(() => {});
+    const s = getSocket();
+    const onN = (n) => { setNotifs((x) => [n, ...x]); toast(n.icon + ' ' + n.title); };
+    s?.on('notification', onN);
+    return () => s?.off('notification', onN);
+  }, [toast]);
+  useEffect(() => setOpen(false), [loc.pathname]);
+
+  const current = nav.flatMap((g) => g[1]).find(([p]) => p === loc.pathname) || ['', '', loc.pathname === '/profile' ? 'My Profile' : ''];
+  const unread = notifs.filter((n) => !n.read).length;
+  const markRead = async () => { await api('/notifications/read-all', { method: 'POST' }); setNotifs((x) => x.map((n) => ({ ...n, read: true }))); };
+
+  return (
+    <div className="app">
+      <aside className="side">
+        <div className="logo"><div className="logo-mark">🎓</div><span>InternHub</span></div>
+        {nav.map(([g, items]) => (
+          <div key={g}>
+            <div className="nav-label">{g}</div>
+            {items.map(([p, ic, label]) => (
+              <NavLink key={p} to={p} end className={({ isActive }) => 'nav-btn' + (isActive ? ' active' : '')} style={{ textDecoration: 'none' }}>
+                <span className="ic">{ic}</span>{label}
+              </NavLink>
+            ))}
+          </div>
+        ))}
+        <div className="side-foot">
+          <NavLink to="/profile" className="nav-btn" style={{ textDecoration: 'none' }}><span className="ic">👤</span>My Profile</NavLink>
+          <button className="nav-btn logout" onClick={() => { logout(); navigate('/login'); }}><span className="ic">↩</span>Log out</button>
+        </div>
+      </aside>
+      <div className="main">
+        <header className="top">
+          <div><h1>{current[2]}</h1><div className="sub">{new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</div></div>
+          <div className="spacer" />
+          <button className="bell" onClick={(e) => { e.stopPropagation(); setOpen(!open); }} aria-label="Notifications">🔔{unread > 0 && <span className="dot" />}</button>
+          <div className="me"><Avatar name={user.name} /><div><div className="n">{user.name}</div><div className="r">{ROLE_LABEL[user.role]}{user.team ? ' · ' + user.team.name : ''}</div></div></div>
+        </header>
+        {open && (
+          <div className="dropdown open">
+            <div className="hd">Notifications<span className="spacer" /><button className="small" style={{ color: 'var(--brand)' }} onClick={markRead}>Mark all read</button></div>
+            {notifs.length ? notifs.map((n) => (
+              <div key={n._id} className={'nt' + (n.read ? '' : ' unread')} style={{ cursor: n.link ? 'pointer' : 'default' }} onClick={() => n.link && navigate(n.link)}>
+                <div className="ico">{n.icon}</div><div><div className="t">{n.title}</div><div className="s">{n.body}</div><div className="s">{new Date(n.createdAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}</div></div>
+              </div>
+            )) : <div className="empty">Nothing new</div>}
+          </div>
+        )}
+        {user.mustChangePassword && loc.pathname !== '/profile' && (
+          <div style={{ padding: '14px 28px 0' }}><div className="demo-note">You are using a temporary password. <NavLink to="/profile">Change it now</NavLink>.</div></div>
+        )}
+        <main className="content" onClick={() => setOpen(false)}><Outlet /></main>
+      </div>
+    </div>
+  );
+}

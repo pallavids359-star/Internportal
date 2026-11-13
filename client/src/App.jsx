@@ -1,0 +1,43 @@
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useApp } from './context';
+import Layout from './components/Layout';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import Interns from './pages/Interns';
+import Teams from './pages/Teams';
+import Projects from './pages/Projects';
+import Tasks from './pages/Tasks';
+import Attendance from './pages/Attendance';
+import Meetings from './pages/Meetings';
+import Chat from './pages/Chat';
+import Documents from './pages/Documents';
+import Reports from './pages/Reports';
+import Roles from './pages/Roles';
+import Profile from './pages/Profile';
+import { Loading } from './components/ui';
+
+export default function App() {
+  const { user, loading, isAdmin, isIntern } = useApp();
+  if (loading) return <Loading />;
+  if (!user) return <Routes><Route path="*" element={<Login />} /></Routes>;
+  return (
+    <Routes>
+      <Route path="/login" element={<Navigate to="/" />} />
+      <Route element={<Layout />}>
+        <Route path="/" element={<Dashboard />} />
+        {isAdmin && <Route path="/interns" element={<Interns />} />}
+        {!isIntern && <Route path="/teams" element={<Teams />} />}
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/tasks" element={<Tasks />} />
+        <Route path="/attendance" element={<Attendance />} />
+        <Route path="/meetings" element={<Meetings />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/documents" element={<Documents />} />
+        <Route path="/reports" element={<Reports />} />
+        {isAdmin && <Route path="/roles" element={<Roles />} />}
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Route>
+    </Routes>
+  );
+}
