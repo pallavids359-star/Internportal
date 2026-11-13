@@ -9,7 +9,7 @@ const NAV = {
   admin: [['Overview', [['/', '🏠', 'Dashboard'], ['/interns', '🎓', 'Interns'], ['/teams', '👥', 'Teams']]],
     ['Work', [['/projects', '📁', 'Projects'], ['/tasks', '✅', 'Tasks'], ['/attendance', '🕘', 'Attendance']]],
     ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Documents']]],
-    ['Insights', [['/reports', '📊', 'Reports'], ['/roles', '🔐', 'Roles & Access']]]],
+    ['Insights', [['/reports', '📊', 'Reports'], ['/audit', '\u{1F9FE}', 'Audit Log'], ['/roles', '🔐', 'Roles & Access']]]],
   leader: [['Overview', [['/', '🏠', 'Dashboard'], ['/teams', '👥', 'My Team']]],
     ['Work', [['/projects', '📁', 'Projects'], ['/tasks', '✅', 'Tasks'], ['/attendance', '🕘', 'Attendance']]],
     ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Documents']]],

@@ -21,6 +21,8 @@ const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 app.use(helmet({ contentSecurityPolicy: false, crossOriginResourcePolicy: false }));
 app.use(cors({ origin: CLIENT_URL }));
 app.use(express.json({ limit: '1mb' }));
+app.set('trust proxy', 1);
+app.use(require('./middleware/auditTrail'));
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 app.use('/api/auth', require('./routes/auth'));
@@ -34,6 +36,7 @@ app.use('/api/messages', auth, require('./routes/messages'));
 app.use('/api/documents', auth, require('./routes/documents'));
 app.use('/api/notifications', auth, require('./routes/notifications'));
 app.use('/api/reports', auth, require('./routes/reports'));
+app.use('/api/audit', auth, require('./routes/audit'));
 app.use('/api', (req, res) => res.status(404).json({ error: 'Not found' }));
 
 const dist = path.join(__dirname, '..', '..', 'client', 'dist');

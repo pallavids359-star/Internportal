@@ -14,6 +14,7 @@ import Documents from './pages/Documents';
 import Reports from './pages/Reports';
 import Roles from './pages/Roles';
 import Profile from './pages/Profile';
+import Audit from './pages/Audit';
 import { Loading } from './components/ui';
 
 export default function App() {
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/documents" element={<Documents />} />
         <Route path="/reports" element={<Reports />} />
         {isAdmin && <Route path="/roles" element={<Roles />} />}
+        {isAdmin && <Route path="/audit" element={<Audit />} />}
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Route>
