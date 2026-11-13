@@ -46,7 +46,7 @@ export default function Layout() {
   return (
     <div className="app">
       <aside className="side">
-        <div className="logo"><div className="logo-mark">🎓</div><span>InternHub</span></div>
+        <div className="logo"><div className="logo-img" role="img" aria-label="Manchester Technologies"></div><span className="logo-text">Manchester<small>Intern Portal</small></span></div>
         {nav.map(([g, items]) => (
           <div key={g}>
             <div className="nav-label">{g}</div>
