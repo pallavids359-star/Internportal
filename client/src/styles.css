@@ -152,3 +152,8 @@ a{color:var(--brand)}
 .logo-text{display:flex;flex-direction:column;line-height:1.15;font-size:16px;letter-spacing:.02em}
 .logo-text small{font-size:11px;font-weight:600;color:#c9a24d;letter-spacing:.12em;text-transform:uppercase}
 .login-logo{width:100%;max-width:260px;align-self:center;border-radius:14px;margin-bottom:4px}
+
+/* ===== Sidebar full logo ===== */
+.logo{padding:0 4px 14px}
+.side-logo{width:100%;border-radius:12px;display:block}
+@media(max-width:760px){.side-logo{width:44px;border-radius:50%}}
