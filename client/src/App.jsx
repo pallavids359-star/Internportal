@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { useApp } from './context';
 import Layout from './components/Layout';
 import Login from './pages/Login';
+import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Interns from './pages/Interns';
 import Teams from './pages/Teams';
@@ -23,7 +24,7 @@ import { Loading } from './components/ui';
 export default function App() {
   const { user, loading, isAdmin, isIntern } = useApp();
   if (loading) return <Loading />;
-  if (!user) return <Routes><Route path="/forgot-password" element={<ForgotPassword />} /><Route path="/reset-password" element={<ResetPassword />} /><Route path="*" element={<Login />} /></Routes>;
+  if (!user) return <Routes><Route path="/forgot-password" element={<ForgotPassword />} /><Route path="/reset-password" element={<ResetPassword />} /><Route path="/" element={<Home />} /><Route path="*" element={<Login />} /></Routes>;
   return (
     <Routes>
       <Route path="/login" element={<Navigate to="/" />} />
