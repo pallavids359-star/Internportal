@@ -60,9 +60,12 @@ export default function Layout() {
             ))}
           </div>
         ))}
-        <div className="side-foot"><PwaControls />
-          <NavLink to="/profile" className="nav-btn" style={{ textDecoration: 'none' }}><span className="ic"><Icon e="user" /></span>My Profile</NavLink>
-          <button className="nav-btn logout" onClick={async () => { await pushLogout(); logout(); navigate('/login'); }}><span className="ic"><Icon e="logout" /></span>Log out</button>
+        <div className="side-foot">
+          <div className="side-app"><PwaControls /></div>
+          <div className="side-user">
+            <NavLink to="/profile" className={({ isActive }) => 'nav-btn side-me' + (isActive ? ' active' : '')} style={{ textDecoration: 'none' }} title="My Profile"><span className="ic"><Avatar sm name={user.name} photo={user.profile && user.profile.photo} /></span><span className="side-me-t"><b>{user.name}</b><small>{ROLE_LABEL[user.role]}</small></span></NavLink>
+            <button className="nav-btn logout side-out" title="Log out" onClick={async () => { await pushLogout(); logout(); navigate('/login'); }}><span className="ic"><Icon e="logout" /></span><span className="side-out-t">Log out</span></button>
+          </div>
         </div>
       </aside>
       <div className="main">
