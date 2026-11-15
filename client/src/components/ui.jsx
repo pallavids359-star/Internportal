@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Icon from './Icon';
 
-const COLORS = ['#4f46e5', '#7c3aed', '#0284c7', '#16a34a', '#d97706', '#db2777', '#0891b2', '#9333ea', '#ea580c', '#059669'];
+const COLORS = ['#3a3122', '#2a3530', '#2c3140', '#3a2c33', '#33302a', '#24343a', '#3a3428', '#302b3a', '#3b2f26', '#283a32'];
 const hash = (s = '') => [...s].reduce((a, c) => a + c.charCodeAt(0), 0);
 export const initials = (n = '?') => n.split(' ').map((x) => x[0]).join('').slice(0, 2).toUpperCase();
 

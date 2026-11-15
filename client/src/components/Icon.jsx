@@ -24,12 +24,13 @@ const P = {
   shield: 'M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z M9 12l2 2 4-4',
   arrow: 'M5 12h14M13 6l6 6-6 6',
   rocket: 'M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2M14 4c3-1 6-1 6-1s0 3-1 6l-7 7-5-5zM9 15l-2-2M15 9a1 1 0 1 0 0-.01',
+  alert: 'M12 3l10 18H2zM12 10v5M12 18h.01',
   inbox: 'M3 13l2.5-8h13L21 13v6.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 19.5zM3 13h5l1.5 3h5L16 13h5',
 };
 const BY_EMOJI = {
   0x1F3E0: 'home', 0x1F393: 'cap', 0x1F465: 'users', 0x1F4C1: 'folder', 0x2705: 'check', 0x1F4DD: 'pen',
   0x1F4F9: 'video', 0x1F4AC: 'chat', 0x1F4CC: 'pin', 0x1F9FE: 'list', 0x1F510: 'lock', 0x1F464: 'user',
-  0x21A9: 'logout', 0x1F514: 'bell', 0x1F4CB: 'clip', 0x1F552: 'clock', 0x2B50: 'star', 0x1F4E5: 'inbox',
+  0x21A9: 'logout', 0x1F514: 'bell', 0x1F4CB: 'clip', 0x1F552: 'clock', 0x2B50: 'star', 0x1F4E5: 'inbox', 0x23F3: 'clock', 0x26A0: 'alert',
 };
 
 export default function Icon({ e, size = 18 }) {
