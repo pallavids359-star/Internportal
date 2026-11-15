@@ -22,7 +22,7 @@ export default function Login() {
         <div className="lg-tag">Intern Portal</div>
         <ul className="lg-points">
           <li>Tasks, projects and reviews in one place</li>
-          <li>Attendance, meetings and team chat</li>
+          <li>Daily work updates, meetings and team chat</li>
           <li>Track your progress and performance</li>
         </ul>
       </section>

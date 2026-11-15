@@ -32,7 +32,7 @@ app.use('/api/users', auth, require('./routes/users'));
 app.use('/api/teams', auth, require('./routes/teams'));
 app.use('/api/projects', auth, require('./routes/projects'));
 app.use('/api/tasks', auth, require('./routes/tasks'));
-app.use('/api/attendance', auth, require('./routes/attendance'));
+
 app.use('/api/meetings', auth, require('./routes/meetings'));
 app.use('/api/messages', auth, require('./routes/messages'));
 app.use('/api/documents', auth, require('./routes/documents'));

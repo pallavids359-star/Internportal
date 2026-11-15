@@ -7,7 +7,7 @@ import Interns from './pages/Interns';
 import Teams from './pages/Teams';
 import Projects from './pages/Projects';
 import Tasks from './pages/Tasks';
-import Attendance from './pages/Attendance';
+
 import Meetings from './pages/Meetings';
 import Chat from './pages/Chat';
 import Documents from './pages/Documents';
@@ -33,7 +33,7 @@ export default function App() {
         {!isIntern && <Route path="/teams" element={<Teams />} />}
         <Route path="/projects" element={<Projects />} />
         <Route path="/tasks" element={<Tasks />} />
-        <Route path="/attendance" element={<Attendance />} />
+        
         <Route path="/worklog" element={<WorkLog />} />
         <Route path="/meetings" element={<Meetings />} />
         <Route path="/chat" element={<Chat />} />
