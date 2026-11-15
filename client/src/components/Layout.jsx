@@ -9,16 +9,14 @@ import Banner from './Banner';
 const NAV = {
   admin: [['Overview', [['/', '🏠', 'Dashboard'], ['/interns', '🎓', 'Interns'], ['/teams', '👥', 'Teams']]],
     ['Work', [['/projects', '📁', 'Projects'], ['/tasks', '✅', 'Tasks'], ['/worklog', '\u{1F4DD}', 'Work Updates']]],
-    ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Documents']]],
-    ['Insights', [['/reports', '📊', 'Reports'], ['/notices', '\u{1F4CC}', 'Notice Board'], ['/audit', '\u{1F9FE}', 'Audit Log'], ['/roles', '🔐', 'Roles & Access']]]],
+    ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat']]],
+    ['Insights', [['/notices', '\u{1F4CC}', 'Notice Board'], ['/audit', '\u{1F9FE}', 'Audit Log'], ['/roles', '🔐', 'Roles & Access']]]],
   leader: [['Overview', [['/', '🏠', 'Dashboard'], ['/teams', '👥', 'My Team']]],
     ['Work', [['/projects', '📁', 'Projects'], ['/tasks', '✅', 'Tasks'], ['/worklog', '\u{1F4DD}', 'Work Updates']]],
-    ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Documents']]],
-    ['Insights', [['/reports', '📊', 'Team Reports']]]],
+    ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat']]]],
   intern: [['Overview', [['/', '🏠', 'My Dashboard']]],
     ['Work', [['/projects', '📁', 'My Projects'], ['/tasks', '✅', 'My Tasks'], ['/worklog', '\u{1F4DD}', 'Work Updates']]],
-    ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Learning & Docs']]],
-    ['Insights', [['/reports', '⭐', 'My Performance']]]],
+    ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat']]]],
 };
 const roleKey = (r) => (r === 'superadmin' ? 'admin' : r);
 const ROLE_LABEL = { superadmin: 'Super Admin', admin: 'Admin', leader: 'Team Leader', intern: 'Intern' };

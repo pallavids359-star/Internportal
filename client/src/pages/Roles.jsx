@@ -6,8 +6,8 @@ const PERMS = [
   ['Write daily work updates', '-', '\u2705', '\u2705'], ['Review work updates', 'Everyone', 'Own team', '-'],
   ['Schedule meetings', 'Everyone or any team', 'Own team', '-'], ['Post announcements', '\u2705', '-', '-'],
   ['Chat', 'All channels', 'General + own team + DMs', 'General + own team + DMs'],
-  ['Upload documents', 'Any category', 'Learning / Project', 'Learning / Project'],
-  ['Reports', 'Everyone + CSV', 'Own team + CSV', 'Own performance'], ['Rate interns & give feedback', '\u2705', '\u2705 own team', '-'], ['View audit log', '\u2705', '-', '-'],
+  
+  ['Rate interns & give feedback', '\u2705', '\u2705 own team', '-'], ['View audit log', '\u2705', '-', '-'],
 ];
 export default function Roles() {
   return (

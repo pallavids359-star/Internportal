@@ -10,8 +10,8 @@ import Tasks from './pages/Tasks';
 
 import Meetings from './pages/Meetings';
 import Chat from './pages/Chat';
-import Documents from './pages/Documents';
-import Reports from './pages/Reports';
+
+
 import Roles from './pages/Roles';
 import Profile from './pages/Profile';
 import Audit from './pages/Audit';
@@ -37,8 +37,8 @@ export default function App() {
         <Route path="/worklog" element={<WorkLog />} />
         <Route path="/meetings" element={<Meetings />} />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/documents" element={<Documents />} />
-        <Route path="/reports" element={<Reports />} />
+        
+        
         {isAdmin && <Route path="/roles" element={<Roles />} />}
         {isAdmin && <Route path="/audit" element={<Audit />} />}
         {isAdmin && <Route path="/notices" element={<Notices />} />}

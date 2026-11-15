@@ -54,7 +54,7 @@ router.patch('/:id', async (req, res) => {
   } else return res.status(403).json({ error: 'Not allowed' });
 
   await target.save();
-  if ('feedback' in b && b.feedback) await notify([target._id], { icon: '⭐', title: 'New feedback from your leader', body: b.feedback.slice(0, 120), link: '/reports' });
+  if ('feedback' in b && b.feedback) await notify([target._id], { icon: '⭐', title: 'New feedback from your leader', body: b.feedback.slice(0, 120), link: '/' });
   res.json(await target.populate('team', 'name color'));
 });
 
