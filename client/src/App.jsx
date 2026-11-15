@@ -23,7 +23,7 @@ import { Loading } from './components/ui';
 
 export default function App() {
   const { user, loading, isAdmin, isIntern } = useApp();
-  if (loading) return <Loading />;
+  if (loading) return <Loading full />;
   if (!user) return <Routes><Route path="/forgot-password" element={<ForgotPassword />} /><Route path="/reset-password" element={<ResetPassword />} /><Route path="/" element={<Home />} /><Route path="*" element={<Login />} /></Routes>;
   return (
     <Routes>

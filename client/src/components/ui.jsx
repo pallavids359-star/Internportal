@@ -21,7 +21,13 @@ export const Stat = ({ k, v, d, icon, bg }) => (
 );
 export const Bar = ({ pct }) => <div className="bar"><i style={{ width: Math.max(0, Math.min(100, pct)) + '%' }} /></div>;
 export const Empty = ({ children }) => <div className="empty">{children}</div>;
-export const Loading = () => <div className="loading">Loading…</div>;
+export const Loading = ({ full, text }) => (
+  <div className={full ? 'mt-loader full' : 'mt-loader'} role="status" aria-label="Loading">
+    <div className="mt-spin"><i /><img src="/icon-192.png" alt="" /></div>
+    {full ? <div className="mt-load-word">Manchester<b>Tech</b></div> : null}
+    <div className="mt-load-text">{text || (full ? 'Getting your portal ready' : 'Loading')}<span className="mt-dots"><b>.</b><b>.</b><b>.</b></span></div>
+  </div>
+);
 
 export const fmtDate = (d) => (d ? new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) : '—');
 export const fmtTime = (d) => (d ? new Date(d).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false }) : '—');
