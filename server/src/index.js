@@ -30,6 +30,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/password', require('./routes/password'));
 app.use('/api/users', auth, require('./routes/users'));
 app.use('/api/profile', auth, require('./routes/profile'));
+app.use('/api/push', auth, require('./routes/push'));
 app.use('/api/teams', auth, require('./routes/teams'));
 app.use('/api/projects', auth, require('./routes/projects'));
 app.use('/api/tasks', auth, require('./routes/tasks'));
@@ -49,6 +50,7 @@ app.use('/api', (req, res) => res.status(404).json({ error: 'Not found' }));
 
 const dist = path.join(__dirname, '..', '..', 'client', 'dist');
 if (fs.existsSync(dist)) {
+  app.get('/sw.js', (req, res, next) => { res.set('Cache-Control', 'no-cache'); next(); });
   app.use(express.static(dist));
   app.get(/^\/(?!api|socket\.io).*/, (req, res) => res.sendFile(path.join(dist, 'index.html')));
 }

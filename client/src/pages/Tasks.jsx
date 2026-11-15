@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api, download } from '../api';
 import { useApp } from '../context';
 import { useApi, Loading, Modal, Avatar, PrioPill, STATUS, DueText } from '../components/ui';
@@ -69,14 +70,18 @@ export default function Tasks() {
 }
 
 function NewTask({ projects, users, onClose, onSubmit }) {
+  const nav = useNavigate();
   const [project, setProject] = useState(projects[0]?._id);
   const team = projects.find((p) => p._id === project)?.team?._id;
   const people = users.filter((u) => u.team?._id === team && ['intern', 'leader'].includes(u.role));
-  return <Modal title="Assign task" okLabel="Assign" onClose={onClose} onSubmit={onSubmit}>
+  const proj = projects.find((p) => p._id === project);
+  if (!projects.length) return <Modal title="Assign task" okLabel="Go to Projects" onClose={onClose} onSubmit={async () => nav('/projects')}><p>There are no projects yet.</p><p className="muted">Every task belongs to a project. Create a team, add people to it, then create a project for that team. After that you can assign tasks here.</p></Modal>;
+  const check = async (fd) => { if (!people.length) throw new Error('Nobody is in ' + (proj?.team?.name || 'this team') + ' yet. Add interns or a leader to that team on the Interns page first.'); return onSubmit(fd); };
+  return <Modal title="Assign task" okLabel="Assign" onClose={onClose} onSubmit={check}>
     <label className="f">Task title<input name="title" required /></label>
     <label className="f">Details<textarea name="description" rows="2" /></label>
     <div className="row2"><label className="f">Project<select name="project" value={project} onChange={(e) => setProject(e.target.value)}>{projects.map((p) => <option key={p._id} value={p._id}>{p.name}</option>)}</select></label>
-      <label className="f">Assign to<select name="assignee" required>{people.map((u) => <option key={u._id} value={u._id}>{u.name}</option>)}</select></label></div>
+      <label className="f">Assign to<select name="assignee">{people.length ? people.map((u) => <option key={u._id} value={u._id}>{u.name}{u.role === 'leader' ? ' (Leader)' : ''}</option>) : <option value="">Nobody in this team yet</option>}</select></label></div>
     <div className="row2"><label className="f">Due date<input name="due" type="date" /></label>
       <label className="f">Priority<select name="priority" defaultValue="Medium"><option>High</option><option>Medium</option><option>Low</option></select></label></div>
   </Modal>;

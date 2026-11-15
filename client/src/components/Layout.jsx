@@ -6,6 +6,7 @@ import { getSocket } from '../socket';
 import { Avatar } from './ui';
 import NetworkBg from './NetworkBg';
 import Icon from './Icon';
+import PwaControls, { pushLogout } from './PwaControls';
 import Banner from './Banner';
 
 const NAV = {
@@ -59,9 +60,9 @@ export default function Layout() {
             ))}
           </div>
         ))}
-        <div className="side-foot">
+        <div className="side-foot"><PwaControls />
           <NavLink to="/profile" className="nav-btn" style={{ textDecoration: 'none' }}><span className="ic"><Icon e="user" /></span>My Profile</NavLink>
-          <button className="nav-btn logout" onClick={() => { logout(); navigate('/login'); }}><span className="ic"><Icon e="logout" /></span>Log out</button>
+          <button className="nav-btn logout" onClick={async () => { await pushLogout(); logout(); navigate('/login'); }}><span className="ic"><Icon e="logout" /></span>Log out</button>
         </div>
       </aside>
       <div className="main">

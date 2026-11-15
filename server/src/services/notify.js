@@ -1,11 +1,13 @@
 const { Notification, User } = require('../models');
 const { emitToUser } = require('./socket');
+const { sendPush } = require('./push');
 
 // notify([userIds], {icon,title,body,link})
 async function notify(userIds, data) {
   const ids = [...new Set(userIds.filter(Boolean).map(String))];
   const docs = await Notification.insertMany(ids.map((user) => ({ user, ...data })));
   docs.forEach((n) => emitToUser(n.user, 'notification', n));
+  sendPush(ids, data).catch(() => {});
   return docs;
 }
 async function adminIds() { return (await User.find({ role: { $in: ['admin', 'superadmin'] }, active: true }).select('_id')).map((u) => u._id); }
