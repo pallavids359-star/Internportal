@@ -4,6 +4,7 @@ import { useApp } from '../context';
 import { api } from '../api';
 import { getSocket } from '../socket';
 import { Avatar } from './ui';
+import NetworkBg from './NetworkBg';
 import Banner from './Banner';
 
 const NAV = {
@@ -44,6 +45,7 @@ export default function Layout() {
 
   return (
     <div className="app">
+      <div className="mt-bg"><NetworkBg density={0.6} opacity={0.35} /></div>
       <aside className="side">
         <div className="logo"><div className="logo-img" role="img" aria-label="Manchester Technologies"></div><span className="logo-text">Manchester<small>Intern Portal</small></span></div>
         {nav.map(([g, items]) => (

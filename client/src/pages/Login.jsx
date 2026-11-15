@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context';
+import NetworkBg from '../components/NetworkBg';
 
 export default function Login() {
   const { login } = useApp();
@@ -17,6 +18,7 @@ export default function Login() {
   return (
     <div className="lg-wrap">
       <section className="lg-brand">
+        <NetworkBg opacity={0.9} />
         <div className="lg-glow" />
         <img src="/logo-full.jpg" alt="Manchester Technologies" className="lg-logo" />
         <div className="lg-tag">Intern Portal</div>
