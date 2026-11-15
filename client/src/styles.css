@@ -381,3 +381,24 @@ tr:hover td{background:rgba(212,178,106,.03)}
 .pf-photo{background:#1f1d18;box-shadow:0 0 0 2px rgba(212,178,106,.5)}
 .pf-val{color:var(--ink)}
 a{color:var(--brand)}
+
+/* ===== Gold icons + polished buttons ===== */
+.nav-btn .ic{width:20px;display:grid;place-items:center;color:#8f8a7e;transition:color .15s}
+.nav-btn:hover .ic{color:#f2efe8}
+.nav-btn.active .ic{color:var(--brand)}
+.bell{color:var(--brand)}
+.bell:hover{border-color:rgba(212,178,106,.5)}
+.stat .icon{background:rgba(212,178,106,.08) !important;color:var(--brand);border:1px solid rgba(212,178,106,.25)}
+.btn{padding:9px 18px;border-radius:10px;font-size:13px;letter-spacing:.01em;border:1px solid transparent;transition:transform .15s,box-shadow .2s,background .2s,border-color .2s,color .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,178,106,.35)}
+.btn:disabled{opacity:.5;transform:none;cursor:not-allowed}
+.btn.sm{padding:6px 12px;border-radius:8px;font-size:12px}
+.btn.ghost{color:#e6cf9a;border-color:rgba(212,178,106,.4)}
+.btn.ghost:hover{background:rgba(212,178,106,.1);border-color:var(--brand);color:#f3e2b8}
+.btn.green{background:rgba(74,222,128,.12);color:#6ee7a0;border-color:rgba(74,222,128,.4);box-shadow:none}
+.btn.green:hover{background:rgba(74,222,128,.2)}
+.btn.red{background:rgba(248,113,113,.1);color:#fca5a5;border-color:rgba(248,113,113,.4);box-shadow:none}
+.btn.red:hover{background:rgba(248,113,113,.18)}
+.lg-btn{transition:transform .15s,box-shadow .2s}.lg-btn:hover{transform:translateY(-1px)}

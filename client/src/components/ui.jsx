@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Icon from './Icon';
 
 const COLORS = ['#4f46e5', '#7c3aed', '#0284c7', '#16a34a', '#d97706', '#db2777', '#0891b2', '#9333ea', '#ea580c', '#059669'];
 const hash = (s = '') => [...s].reduce((a, c) => a + c.charCodeAt(0), 0);
@@ -16,7 +17,7 @@ export const AttPill = ({ s }) => {
   return { present: <span className="pill p-green">● Present</span>, late: <span className="pill p-amber">● Late</span>, absent: <span className="pill p-red">● Absent</span> }[s];
 };
 export const Stat = ({ k, v, d, icon, bg }) => (
-  <div className="card stat"><div className="icon" style={{ background: bg }}>{icon}</div><div className="k">{k}</div><div className="v">{v}</div><div className="d">{d}</div></div>
+  <div className="card stat"><div className="icon"><Icon e={icon} size={20} /></div><div className="k">{k}</div><div className="v">{v}</div><div className="d">{d}</div></div>
 );
 export const Bar = ({ pct }) => <div className="bar"><i style={{ width: Math.max(0, Math.min(100, pct)) + '%' }} /></div>;
 export const Empty = ({ children }) => <div className="empty">{children}</div>;
