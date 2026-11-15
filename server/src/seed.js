@@ -17,7 +17,7 @@ const day = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return d;
   await mongoose.connect(process.env.MONGO_URI);
   const demo = process.argv.includes('--demo');
   if (demo) {
-    for (const m of Object.values(M)) await m.deleteMany({});
+    for (const c of await mongoose.connection.db.collections()) await c.deleteMany({});
     console.log('Database cleared.');
   }
   const email = (process.env.ADMIN_EMAIL || 'admin@internhub.local').toLowerCase();

@@ -39,10 +39,11 @@ function LogBody({ log }) {
 
 // ---------- Intern: write today's update + history ----------
 function InternView() {
+  const { user } = useApp();
   const { toast } = useApp();
   const [day, setDay] = useState(localDay(0));
   const [tasks] = useApi('/tasks');
-  const [history, reloadHistory] = useApi('/worklogs');
+  const [history, reloadHistory] = useApi('/worklogs?mine=1');
   const [form, setForm] = useState(null);
   const [saved, setSaved] = useState(null);
   const [busy, setBusy] = useState(false);
@@ -65,7 +66,7 @@ function InternView() {
     e.preventDefault(); setErr(''); setBusy(true);
     try {
       const log = await api('/worklogs', { method: 'POST', body: { ...form, attachments: form.attachments.map((a) => a._id), date: day } });
-      setSaved(log); reloadHistory(); toast(saved ? 'Update saved' : 'Update submitted to your leader');
+      setSaved(log); reloadHistory(); toast(saved ? 'Update saved' : 'Update submitted for review');
     } catch (x) { setErr(x.message); } finally { setBusy(false); }
   };
   const addFiles = async (e) => {
@@ -84,7 +85,7 @@ function InternView() {
     } catch (x) { setErr(x.message); } finally { setUploading(false); }
   };
   const removeFile = (id) => set('attachments', form.attachments.filter((a) => a._id !== id));
-  const openTasks = tasks.filter((t) => t.status !== 'approved' || form.tasks.includes(t._id));
+  const openTasks = tasks.filter((t) => t.assignee && t.assignee._id === user._id && (t.status !== 'approved' || form.tasks.includes(t._id)));
 
   return (<>
     <form className="card" onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -190,6 +191,16 @@ function ReviewView() {
 }
 
 export default function WorkLog() {
-  const { isIntern } = useApp();
-  return isIntern ? <InternView /> : <ReviewView />;
+  const { isIntern, isLeader } = useApp();
+  const [tab, setTab] = useState('mine');
+  if (isIntern) return <InternView />;
+  if (!isLeader) return <ReviewView />;
+  // Team leaders write their own update AND review their team
+  return (<>
+    <div className="toolbar">
+      <button className={'btn ' + (tab === 'mine' ? '' : 'ghost')} onClick={() => setTab('mine')}>My update</button>
+      <button className={'btn ' + (tab === 'team' ? '' : 'ghost')} onClick={() => setTab('team')}>Team updates</button>
+    </div>
+    {tab === 'mine' ? <InternView /> : <ReviewView />}
+  </>);
 }

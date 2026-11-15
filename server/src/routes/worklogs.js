@@ -43,7 +43,9 @@ router.get('/', async (req, res) => {
   if (date) q.date = date;
   else if (from || to) { q.date = {}; if (from) q.date.$gte = from; if (to) q.date.$lte = to; }
   if (user && req.user.role !== 'intern') q.user = user;
-  res.json(await pop(WorkLog.find(q).sort({ date: -1, createdAt: -1 }).limit(300)));
+  if (req.query.mine === '1') q.user = req.user._id; // only my own updates
+  const logs = await pop(WorkLog.find(q).sort({ date: -1, createdAt: -1 }).limit(300));
+  res.json(logs.filter((l) => l.user)); // skip updates of deleted accounts
 });
 
 // My update for a day (default today)
