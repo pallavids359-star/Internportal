@@ -34,7 +34,13 @@ export default function Dashboard() {
   const [report] = useApi('/reports');
   const myLogs = useSoft(isIntern ? '/worklogs?mine=1' : '/worklogs?date=' + todayStr());
   const missing = useSoft(isIntern ? '/announcements' : '/worklogs/missing');
-  if (!tasks || !projects || !meetings || !report || !myLogs || !missing) return <Loading />;
+  const prof = useSoft('/profile/me');
+  if (!tasks || !projects || !meetings || !report || !myLogs || !missing || !prof) return <Loading />;
+  const nudge = !isAdmin && prof.completeness < 100 && (
+    <div className="card" style={{ display: 'flex', alignItems: 'center', gap: 16, borderLeft: '4px solid var(--amber)' }}>
+      <div style={{ flex: 1 }}><b>Complete your profile ({prof.completeness}%)</b><div className="small muted">Add your address, date of birth, education and emergency contact.</div><div style={{ marginTop: 8, maxWidth: 360 }}><Bar pct={prof.completeness} /></div></div>
+      <button className="btn" onClick={() => nav('/profile')}>Complete profile</button>
+    </div>);
   const upcoming = meetings.filter((m) => new Date(m.start) > new Date(Date.now() - 3600e3)).slice(0, 4);
   const done = tasks.filter((t) => t.status === 'approved').length;
   const completion = tasks.length ? Math.round((done / tasks.length) * 100) : 0;
@@ -50,6 +56,7 @@ export default function Dashboard() {
         <p>You have {open.length} open tasks and {upcoming.length} upcoming meetings. {wroteToday ? 'Today\'s work update is done.' : 'You haven\'t written today\'s work update yet.'}</p></div>
         <button className="btn" onClick={() => nav('/worklog')}>{wroteToday ? 'View my updates' : 'Write today\'s update'}</button>
       </div>
+      {nudge}
       <div className="grid g4">
         <Stat k="Open tasks" v={open.length} d={`across ${projects.length} project(s)`} icon={'\u{1F4CB}'} bg="var(--brand-soft)" />
         <Stat k="Completed" v={done} d="approved" icon={'\u2705'} bg="var(--green-soft)" />
@@ -71,6 +78,7 @@ export default function Dashboard() {
       <h2>{isAdmin ? 'Programme overview' : `${user.team ? user.team.name : ''} - ${user.team ? user.team.focus || '' : ''}`}</h2>
       <p>{people} {isAdmin ? 'interns' : 'team members'} - {projects.length} project(s) - {pending.length} submission(s) waiting</p></div>
       <button className="btn" onClick={() => nav(isAdmin ? '/chat' : '/tasks', { state: { ch: 'announcements' } })}>{isAdmin ? 'Post announcement' : '+ Assign task'}</button></div>
+    {nudge}
     <div className="grid g4">
       <Stat k={isAdmin ? 'Interns' : 'Team members'} v={people} d="active" icon={'\u{1F393}'} bg="var(--brand-soft)" />
       <Stat k="Updates today" v={`${myLogs.length}/${myLogs.length + missing.length}`} d={`${missing.length} not written yet`} icon={'\u{1F4DD}'} bg="var(--green-soft)" />

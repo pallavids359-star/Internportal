@@ -66,7 +66,7 @@ export default function Layout() {
           <div><h1>{current[2]}</h1><div className="sub">{new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</div></div>
           <div className="spacer" />
           <button className="bell" onClick={(e) => { e.stopPropagation(); setOpen(!open); }} aria-label="Notifications">🔔{unread > 0 && <span className="dot" />}</button>
-          <div className="me"><Avatar name={user.name} /><div><div className="n">{user.name}</div><div className="r">{ROLE_LABEL[user.role]}{user.team ? ' · ' + user.team.name : ''}</div></div></div>
+          <div className="me"><Avatar name={user.name} photo={user.profile && user.profile.photo} /><div><div className="n">{user.name}</div><div className="r">{ROLE_LABEL[user.role]}{user.team ? ' · ' + user.team.name : ''}</div></div></div>
         </header>
         {open && (
           <div className="dropdown open">

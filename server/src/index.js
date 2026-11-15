@@ -29,6 +29,7 @@ app.get('/api/health', (req, res) => res.json({ ok: true }));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/password', require('./routes/password'));
 app.use('/api/users', auth, require('./routes/users'));
+app.use('/api/profile', auth, require('./routes/profile'));
 app.use('/api/teams', auth, require('./routes/teams'));
 app.use('/api/projects', auth, require('./routes/projects'));
 app.use('/api/tasks', auth, require('./routes/tasks'));

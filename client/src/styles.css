@@ -281,3 +281,12 @@ a{color:var(--brand)}
   .wa-chat{display:none}.wa.wa-open .wa-chat{display:flex}.wa.wa-open .wa-list{display:none}
   .wa-back{display:block}.wa-msgs{padding:10px 8px}.wa-bubble{max-width:85%}.wa-img{max-width:240px}
 }
+/* ===== Intern profile ===== */
+.pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 16px}
+.pf-wide{grid-column:1/-1}
+.pf-val{padding:9px 0 2px;font-size:14px;color:var(--ink);font-weight:500;min-height:20px}
+@media(max-width:900px){.pf-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.pf-grid{grid-template-columns:1fr}}
+.pf-photo{position:relative;width:96px;height:96px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:var(--brand-soft);flex-shrink:0}
+.pf-photo img{width:100%;height:100%;object-fit:cover}
+.pf-photo-btn{position:absolute;bottom:0;left:0;right:0;background:rgba(20,22,43,.7);color:#fff;font-size:11px;font-weight:700;text-align:center;padding:5px 0;cursor:pointer}

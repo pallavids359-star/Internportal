@@ -4,6 +4,9 @@ const { User, Team } = require('../models');
 const { allow, isAdmin, teamScope } = require('../middleware/auth');
 const { notify } = require('../services/notify');
 
+// Never send private profile details in people lists; only the photo
+const safe = (u) => { const o = u.toObject ? u.toObject() : { ...u }; o.profile = o.profile && o.profile.photo ? { photo: o.profile.photo } : {}; return o; };
+
 // List people the current user may see
 router.get('/', async (req, res) => {
   const q = {};
@@ -15,9 +18,9 @@ router.get('/', async (req, res) => {
   const users = await User.find(q).populate('team', 'name color').sort('name');
   if (scope) {
     const admins = await User.find({ role: { $in: ['admin', 'superadmin'] }, active: true }).sort('name');
-    return res.json([...admins, ...users]);
+    return res.json([...admins, ...users].map(safe));
   }
-  res.json(users);
+  res.json(users.map(safe));
 });
 
 // Admin: register an intern (returns a temporary password to share)
@@ -55,7 +58,7 @@ router.patch('/:id', async (req, res) => {
 
   await target.save();
   if ('feedback' in b && b.feedback) await notify([target._id], { icon: '⭐', title: 'New feedback from your leader', body: b.feedback.slice(0, 120), link: '/' });
-  res.json(await target.populate('team', 'name color'));
+  res.json(safe(await target.populate('team', 'name color')));
 });
 
 router.post('/:id/reset-password', allow('admin'), async (req, res) => {

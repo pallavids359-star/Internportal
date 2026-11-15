@@ -4,7 +4,7 @@ const COLORS = ['#4f46e5', '#7c3aed', '#0284c7', '#16a34a', '#d97706', '#db2777'
 const hash = (s = '') => [...s].reduce((a, c) => a + c.charCodeAt(0), 0);
 export const initials = (n = '?') => n.split(' ').map((x) => x[0]).join('').slice(0, 2).toUpperCase();
 
-export const Avatar = ({ name, sm }) => (
+export const Avatar = ({ name, sm, photo }) => photo ? <img className={'av' + (sm ? ' sm' : '')} src={photo} alt={name} style={{ objectFit: 'cover' }} /> : (
   <div className={'av' + (sm ? ' sm' : '')} style={{ background: COLORS[hash(name) % COLORS.length] }}>{initials(name)}</div>
 );
 

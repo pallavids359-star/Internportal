@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
   feedback: { type: String, default: '' },
   active: { type: Boolean, default: true },
   mustChangePassword: { type: Boolean, default: false },
+  profile: { type: mongoose.Schema.Types.Mixed, default: {} },
 }, { timestamps: true });
 
 userSchema.pre('save', async function () {
