@@ -15,6 +15,7 @@ import Reports from './pages/Reports';
 import Roles from './pages/Roles';
 import Profile from './pages/Profile';
 import Audit from './pages/Audit';
+import WorkLog from './pages/WorkLog';
 import Notices from './pages/Notices';
 import { ForgotPassword, ResetPassword } from './pages/PasswordPages';
 import { Loading } from './components/ui';
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/attendance" element={<Attendance />} />
+        <Route path="/worklog" element={<WorkLog />} />
         <Route path="/meetings" element={<Meetings />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/documents" element={<Documents />} />

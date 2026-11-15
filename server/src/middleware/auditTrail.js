@@ -27,6 +27,8 @@ const RULES = [
   ['POST', /^\/api\/documents$/, 'document.upload'],
   ['DELETE', /^\/api\/documents\/([^/]+)$/, 'document.delete', Document],
   ['POST', /^\/api\/messages\/announcements$/, 'chat.announcement'],
+  ['POST', /^\/api\/worklogs$/, 'worklog.submit'],
+  ['PATCH', /^\/api\/worklogs\/([^/]+)\/review$/, 'worklog.review'],
   ['POST', /^\/api\/announcements$/, 'chat.pin'],
   ['POST', /^\/api\/password\/reset$/, 'auth.password_reset_link'],
 ];
@@ -75,6 +77,8 @@ module.exports = async function auditTrail(req, res, next) {
           break;
         case 'user.bulk_create': target = (out.created || []).length + ' intern(s)'; details = (out.skipped || []).length + ' skipped'; break;
         case 'chat.pin': target = 'Everyone'; details = String(b.text || '').slice(0, 200); break;
+        case 'worklog.submit': target = out.date || ''; details = (out.hours || 0) + ' h: ' + String(out.summary || '').slice(0, 150); break;
+        case 'worklog.review': target = (out.user && out.user.name) || ''; details = (out.date || '') + (out.feedback ? ' - ' + out.feedback : ''); break;
         case 'team.create': target = b.name; details = b.focus || ''; break;
         case 'team.update': target = out.name; details = 'leader' in b ? `leader: ${(out.leader && out.leader.name) || 'none'}` : Object.keys(b).join(', '); break;
         case 'project.create': target = b.name; break;

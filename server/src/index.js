@@ -38,6 +38,7 @@ app.use('/api/messages', auth, require('./routes/messages'));
 app.use('/api/documents', auth, require('./routes/documents'));
 app.use('/api/notifications', auth, require('./routes/notifications'));
 app.use('/api/reports', auth, require('./routes/reports'));
+app.use('/api/worklogs', auth, require('./routes/worklogs'));
 app.use('/api/task-comments', auth, require('./routes/comments'));
 app.use('/api/announcements', auth, require('./routes/announcements'));
 app.use('/api/bulk-users', auth, require('./routes/bulk'));

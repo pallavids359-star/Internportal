@@ -8,15 +8,15 @@ import Banner from './Banner';
 
 const NAV = {
   admin: [['Overview', [['/', '🏠', 'Dashboard'], ['/interns', '🎓', 'Interns'], ['/teams', '👥', 'Teams']]],
-    ['Work', [['/projects', '📁', 'Projects'], ['/tasks', '✅', 'Tasks'], ['/attendance', '🕘', 'Attendance']]],
+    ['Work', [['/projects', '📁', 'Projects'], ['/tasks', '✅', 'Tasks'], ['/worklog', '\u{1F4DD}', 'Work Updates'], ['/attendance', '🕘', 'Attendance']]],
     ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Documents']]],
     ['Insights', [['/reports', '📊', 'Reports'], ['/notices', '\u{1F4CC}', 'Notice Board'], ['/audit', '\u{1F9FE}', 'Audit Log'], ['/roles', '🔐', 'Roles & Access']]]],
   leader: [['Overview', [['/', '🏠', 'Dashboard'], ['/teams', '👥', 'My Team']]],
-    ['Work', [['/projects', '📁', 'Projects'], ['/tasks', '✅', 'Tasks'], ['/attendance', '🕘', 'Attendance']]],
+    ['Work', [['/projects', '📁', 'Projects'], ['/tasks', '✅', 'Tasks'], ['/worklog', '\u{1F4DD}', 'Work Updates'], ['/attendance', '🕘', 'Attendance']]],
     ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Documents']]],
     ['Insights', [['/reports', '📊', 'Team Reports']]]],
   intern: [['Overview', [['/', '🏠', 'My Dashboard']]],
-    ['Work', [['/projects', '📁', 'My Projects'], ['/tasks', '✅', 'My Tasks'], ['/attendance', '🕘', 'My Attendance']]],
+    ['Work', [['/projects', '📁', 'My Projects'], ['/tasks', '✅', 'My Tasks'], ['/worklog', '\u{1F4DD}', 'Work Updates'], ['/attendance', '🕘', 'My Attendance']]],
     ['Collaborate', [['/meetings', '📹', 'Meetings'], ['/chat', '💬', 'Chat'], ['/documents', '📚', 'Learning & Docs']]],
     ['Insights', [['/reports', '⭐', 'My Performance']]]],
 };
