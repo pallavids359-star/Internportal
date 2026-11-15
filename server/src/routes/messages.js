@@ -22,7 +22,7 @@ router.get('/channels', async (req, res) => {
 router.get('/:channel', async (req, res) => {
   const ch = req.params.channel;
   if (!canUseChannel(req.user, ch)) return res.status(403).json({ error: 'Not allowed' });
-  const msgs = await Message.find({ channel: ch }).populate('from', 'name role').sort('-createdAt').limit(100);
+  const msgs = await Message.find({ channel: ch }).populate('from', 'name role').populate('file', 'name mime size').sort('-createdAt').limit(100);
   res.json(msgs.reverse());
 });
 

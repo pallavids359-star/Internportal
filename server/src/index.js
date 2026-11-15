@@ -34,6 +34,7 @@ app.use('/api/projects', auth, require('./routes/projects'));
 app.use('/api/tasks', auth, require('./routes/tasks'));
 
 app.use('/api/meetings', auth, require('./routes/meetings'));
+app.use('/api/chat-files', auth, require('./routes/chatfiles'));
 app.use('/api/messages', auth, require('./routes/messages'));
 app.use('/api/documents', auth, require('./routes/documents'));
 app.use('/api/notifications', auth, require('./routes/notifications'));
