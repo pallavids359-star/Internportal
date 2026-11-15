@@ -49,7 +49,7 @@ export default function Layout() {
     <div className="app">
       <div className="mt-bg"><NetworkBg density={0.6} opacity={0.35} /></div>
       <aside className="side">
-        <div className="logo"><div className="logo-img" role="img" aria-label="Manchester Technologies"></div><span className="logo-text">Manchester<small>Intern Portal</small></span></div>
+        <div className="logo"><div className="logo-img" role="img" aria-label="Manchester Technologies"></div><span className="logo-text">Manchester<small>Team</small></span></div>
         {nav.map(([g, items]) => (
           <div key={g}>
             <div className="nav-label">{g}</div>
