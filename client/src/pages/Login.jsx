@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context';
 import NetworkBg from '../components/NetworkBg';
+import Icon from '../components/Icon';
 
 export default function Login() {
   const { login } = useApp();
@@ -20,13 +21,18 @@ export default function Login() {
       <section className="lg-brand">
         <NetworkBg opacity={0.9} />
         <div className="lg-glow" />
-        <img src="/logo-full.jpg" alt="Manchester Technologies" className="lg-logo" />
-        <div className="lg-tag">Intern Portal</div>
-        <ul className="lg-points">
-          <li>Tasks, projects and reviews in one place</li>
-          <li>Daily work updates, meetings and team chat</li>
-          <li>Track your progress and performance</li>
-        </ul>
+        <div className="lg-inner">
+          <div className="lg-emblem"><img src="/icon-512.png" alt="Manchester Technologies" /></div>
+          <div className="lg-word">Manchester<span>Tech</span></div>
+          <div className="lg-pill">Innovate. Develop. Dominate.</div>
+          <h2 className="lg-head">Your internship, <em>all in one place</em></h2>
+          <ul className="lg-feats">
+            <li><span className="lg-fi"><Icon e="check" /></span><div><b>Tasks & reviews</b><small>Get work assigned, submit it and get feedback.</small></div></li>
+            <li><span className="lg-fi"><Icon e="pen" /></span><div><b>Daily work updates</b><small>Share what you did today with your leader.</small></div></li>
+            <li><span className="lg-fi"><Icon e="chat" /></span><div><b>Meetings & team chat</b><small>Stay in touch with your team, on any device.</small></div></li>
+          </ul>
+          <div className="lg-foot">Intern Portal &middot; Manchester Technologies</div>
+        </div>
       </section>
       <section className="lg-form-side">
         <form className="lg-form" onSubmit={submit}>
