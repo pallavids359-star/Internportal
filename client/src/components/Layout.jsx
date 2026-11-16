@@ -42,11 +42,12 @@ export default function Layout() {
   useEffect(() => setOpen(false), [loc.pathname]);
 
   const current = nav.flatMap((g) => g[1]).find(([p]) => p === loc.pathname) || ['', '', loc.pathname === '/profile' ? 'My Profile' : ''];
+  const isChat = loc.pathname === '/chat';
   const unread = notifs.filter((n) => !n.read).length;
   const markRead = async () => { await api('/notifications/read-all', { method: 'POST' }); setNotifs((x) => x.map((n) => ({ ...n, read: true }))); };
 
   return (
-    <div className="app">
+    <div className={'app' + (isChat ? ' app-chat' : '')}>
       <div className="mt-bg"><NetworkBg density={0.6} opacity={0.35} /></div>
       <aside className="side">
         <div className="logo"><div className="logo-img" role="img" aria-label="Manchester Technologies"></div><span className="logo-text">Manchester<small>Team</small></span></div>
@@ -68,7 +69,7 @@ export default function Layout() {
           </div>
         </div>
       </aside>
-      <div className="main">
+      <div className={'main' + (isChat ? ' main-chat' : '')}>
         <header className="top">
           <div><h1>{current[2]}</h1><div className="sub">{new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</div></div>
           <div className="spacer" />
@@ -88,7 +89,7 @@ export default function Layout() {
         {user.mustChangePassword && loc.pathname !== '/profile' && (
           <div style={{ padding: '14px 28px 0' }}><div className="demo-note">You are using a temporary password. <NavLink to="/profile">Change it now</NavLink>.</div></div>
         )}
-        <main className="content" onClick={() => setOpen(false)}><Banner /><Outlet /></main>
+        <main className={'content' + (isChat ? ' content-chat' : '')} onClick={() => setOpen(false)}><Banner /><Outlet /></main>
       </div>
     </div>
   );

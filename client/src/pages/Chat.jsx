@@ -102,7 +102,7 @@ export default function Chat() {
   useEffect(() => {
     api('/messages/channels').then((list) => {
       setChannels(list);
-      api('/chat-files/last?ch=' + encodeURIComponent(list.map((c) => c.id).join(','))).then(setLast).catch(() => {});
+      api('/chat-files/last?ch=' + encodeURIComponent(list.map((c) => c.id).join(','))).then(setLast).catch(() => { });
     });
   }, []);
   useEffect(() => {
@@ -200,14 +200,16 @@ export default function Chat() {
         <div className="wa-list-head">Chats</div>
         <div className="wa-search"><input placeholder="Search chats" value={q} onChange={(e) => setQ(e.target.value)} /></div>
         <div className="wa-items">
-          {sorted.map((c) => { const m = last[c.id]; const n = unread[c.id] || 0; const isNew = hasNew(c); return (
-            <button key={c.id} className={'wa-item' + (c.id === ch ? ' on' : '')} onClick={() => setCh(c.id)}>
-              <ChatAvatar c={c} />
-              <span className="wa-item-body">
-                <span className="wa-item-top"><b>{label(c)}</b><span className={'wa-item-time' + (isNew ? ' new' : '')}>{m ? listTime(m.createdAt) : ''}</span></span>
-                <span className="wa-item-bot"><span className="wa-item-prev">{preview(m)}</span>{isNew && <span className="wa-badge">{n || ''}</span>}</span>
-              </span>
-            </button>); })}
+          {sorted.map((c) => {
+            const m = last[c.id]; const n = unread[c.id] || 0; const isNew = hasNew(c); return (
+              <button key={c.id} className={'wa-item' + (c.id === ch ? ' on' : '')} onClick={() => setCh(c.id)}>
+                <ChatAvatar c={c} />
+                <span className="wa-item-body">
+                  <span className="wa-item-top"><b>{label(c)}</b><span className={'wa-item-time' + (isNew ? ' new' : '')}>{m ? listTime(m.createdAt) : ''}</span></span>
+                  <span className="wa-item-bot"><span className="wa-item-prev">{preview(m)}</span>{isNew && <span className="wa-badge">{n || ''}</span>}</span>
+                </span>
+              </button>);
+          })}
           {!sorted.length && <div className="empty small">No chats found</div>}
         </div>
       </aside>
@@ -252,7 +254,7 @@ export default function Chat() {
                   onChange={(e) => setText(e.target.value)}
                   onPaste={(e) => { const files = [...e.clipboardData.items].filter((it) => it.kind === 'file').map((it) => it.getAsFile()); if (files.length) { e.preventDefault(); addFiles(files); } }}
                   onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }} />
-                <button className="wa-send" disabled={sending || (!text.trim() && !pending.length)} title="Send">{sending ? '...' : '\u{27A4}'}</button>
+                <button type="submit" className="wa-send" disabled={sending || (!text.trim() && !pending.length)} title="Send">{sending ? '...' : '\u{27A4}'}</button>
               </div>
             </form>
           ) : <div className="wa-compose wa-readonly">Only admins can send messages in announcements</div>}
